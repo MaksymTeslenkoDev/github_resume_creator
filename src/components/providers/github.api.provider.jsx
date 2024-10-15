@@ -4,12 +4,18 @@ import config from '../../utils/config';
 
 export const GitHubApiContext = createContext();
 
+
+const MapStatusToErrors = {
+  401: 'Unauthorized access.',
+  403: 'Access forbidden.',
+  404: 'Not found.'
+}
 export function GitHubApiProvider({ children }){
   const githubApi = axios.create({
     baseURL: config.github.apiUrl,
     headers: {
       'Content-Type': 'application/vnd.github.v3+json',
-      Authorization: `token ${config.github.accessToken}`,
+      Authorization: `Bearer ${config.github.accessToken}`,
     },
   });
 
@@ -27,20 +33,13 @@ export function GitHubApiProvider({ children }){
     (error) => {
       if (error.response) {
         const { status } = error.response;
-        if (status === 401) {
-          // eslint-disable-next-line
-          console.error('Git Hub Api error - unauthorized access - Invalid token');
-        } else if (status === 403) {
-          // eslint-disable-next-line
-          console.error('Git Hub Api error - access forbidden (rate limit may have been exceeded)');
-        } else if (status === 404) {
-          // eslint-disable-next-line
-          console.error('Git Hub Api error - resource not found');
-        } else {
-          // eslint-disable-next-line
-          console.error('GitHub API Error:', error.response.data);
-        }
-      } else if (error.request) {
+        let err = 'GitHub API Error: ';
+        err += MapStatusToErrors[status] || error.response.data;
+        // eslint-disable-next-line
+        console.error(err);
+        return Promise.reject(err);
+      } 
+      if (error.request) {
         // eslint-disable-next-line
         console.error('GitHub API No Response:', error.request);
       } else {
