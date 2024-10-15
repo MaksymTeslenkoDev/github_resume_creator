@@ -11,7 +11,7 @@ export const useGitHubQuery = (key, endpoint, options = {}) => {
 
   return useQuery({
     queryKey: key,
-    queryFn: async (param) => githubApi.get(endpoint(param)),
+    queryFn: (param) => githubApi.get(endpoint(param)).then(res=>res.data),
     ...options,
   });
 };

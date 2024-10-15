@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Button, Card, Typography, Box, TextField, Container, FormHelperText } from '@mui/material';
 import { useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
-import { useGetUserInfo } from './components/hooks/useGenerateUserResume';
+import { useGetUserInfo } from './components/hooks/useGetGithubUserInfo';
 
 export function Home() {
   const queryClient = useQueryClient();
