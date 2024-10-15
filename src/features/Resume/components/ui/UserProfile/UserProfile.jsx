@@ -8,11 +8,12 @@ export function UserProfile({ avatarUrl, name, login, bio, location, company, em
 
   return (
     <Box className={classes.root}>
-      <Grid item xs={12} sm={3} mb={2}>
-        <Avatar alt={name || login} src={avatarUrl} className={classes.avatar} />
-      </Grid>
-      <Grid item xs={12} sm={4} mb={2}>
-        <Box className={classes.info}>
+      <Grid container>
+        <Grid item xs={12} sm={5} md={3} mb={2}>
+          <Avatar alt={name || login} src={avatarUrl} className={classes.avatar} />
+        </Grid>
+        <Grid item xs={12} sm="auto" mb={2}>
+          <Box className={classes.info}>
           <Typography variant="h4" gutterBottom className={classes.highlight}>
             {name || login}
           </Typography>
@@ -54,7 +55,8 @@ export function UserProfile({ avatarUrl, name, login, bio, location, company, em
               </Typography>
             )}
           </Box>
-        </Box>
+          </Box>
+        </Grid>
       </Grid>
     </Box>
   );
