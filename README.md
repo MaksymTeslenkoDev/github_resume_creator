@@ -2,7 +2,9 @@
 This repository contains a React application that generates a dynamic resume based on a user's GitHub profile. It fetches user data, repositories, and languages used, displaying them in a clean, resume-like format. The application is built with Create React App, utilizes Docker for containerization, and is deployed to AWS S3 for static website hosting.
 
 ### Deployed link 
-- AWS s3 deployed version: http://www.my.githubresumebuilder.cloud.s3-website-us-east-1.amazonaws.com/MaksymTeslenkoDev
+- AWS s3 deployed version: 
+ - Home: http://www.my.githubresumebuilder.cloud.s3-website-us-east-1.amazonaws.com
+ - Resume page: http://www.my.githubresumebuilder.cloud.s3-website-us-east-1.amazonaws.com/mcollina
 
 ### Steps to run application 
 
