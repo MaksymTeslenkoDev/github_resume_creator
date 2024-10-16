@@ -12,7 +12,9 @@ ENV REACT_APP_ENV=production
 
 RUN npm run build
 
-FROM nginx:alpine
+COPY --from=build /app/build .
+
+FROM nginx:alpine AS production
 
 COPY --from=build /app/build /usr/share/nginx/html
 
