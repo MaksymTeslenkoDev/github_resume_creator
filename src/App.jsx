@@ -4,6 +4,7 @@ import Routes from "./components/routes";
 import './App.scss';
 
 function App() {
+  console.log("Test 1");
   return (
     <div className="App">
       <ErrorNotification />
