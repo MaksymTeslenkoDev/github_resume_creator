@@ -23,8 +23,8 @@ jobs:
       run: |
         COMMIT_SHA=$(git rev-parse --short HEAD)
         docker build -t devmaksdev/react-nginx-app:$COMMIT_SHA -t devmaksdev/react-nginx-app:latest \
-          --build-arg REACT_APP_GITHUB_API_URL=${{secrets.REACT_APP_GITHUB_API_URL}} \
-          --build-arg REACT_APP_GITHUB_PERSONAL_ACCESS_TOKEN=${{secrets.REACT_APP_GITHUB_PERSONAL_ACCESS_TOKEN}} \
+          --build-arg REACT_APP_GITHUB_API_URL=${{vars.REACT_APP_GITHUB_API_URL}} \
+          --build-arg REACT_APP_GITHUB_PERSONAL_ACCESS_TOKEN=${{vars.REACT_APP_GITHUB_PERSONAL_ACCESS_TOKEN}} \
           --build-arg REACT_APP_ENV=production \
           .
         docker push devmaksdev/react-nginx-app:$COMMIT_SHA
@@ -37,8 +37,9 @@ jobs:
     
     - name: Deploy Docker image to EC2
       run: |
-        ssh -o StrictHostKeyChecking=no ${{ secrets.EC2_USER }}@${{ secrets.EC2_PUBLIC_API }} << 'EOF'
+        ssh -o StrictHostKeyChecking=no ${{ secrets.EC2_USER }}@${{vars.EC2_PUBLIC_API }} << 'EOF'
         docker pull devmaksdev/react-nginx-app
         docker stop $(docker ps -a -q) || true
+        docker rm $(docker ps -a -q) || true
         docker run -d -p 80:80 --name react-app devmaksdev/react-nginx-app
         EOF
